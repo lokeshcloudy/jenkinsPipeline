@@ -7,41 +7,35 @@ pipeline {
         stage("Build") {
             steps {
                 script {
-                    echo 'Building the image'
-                    sh 'mvn package'
+                    buildApp()
                 }
             }
         }
         stage("DockerLogin") {
             steps {
                 script {
-                    echo 'Building the image'
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh "echo ${PASS} | docker login -u ${USER} --password-stdin"
-                    }
+                    dockerLogin()
                 }
             }
         }
         stage("DockerBuild") {
             steps {
                 script {
-                    echo 'Building the image'
-                    sh 'docker build -t lokeshlish/java_app:1.0.0 .'
+                    dockerBuild()
                 }
             }
         }
         stage("DockerPush") {
             steps {
                 script {
-                    echo 'Building the image'
-                    sh 'docker push lokeshlish/java_app:1.0.0'
+                    dockerPush()
                 }
             }
         }
         stage("Deploy") {
             steps {
                 script {
-                    echo 'Deploying the mage'
+                    deployApp()
                 }
             }
         }
