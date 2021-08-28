@@ -15,7 +15,7 @@ pipeline {
         stage("test") {
             steps {
                 script {
-                    gv.buildApp 'mvn package'
+                    gv.buildApp('mvn package')
                 }
             }
         }
