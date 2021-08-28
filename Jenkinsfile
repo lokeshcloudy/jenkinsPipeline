@@ -1,41 +1,49 @@
+def gv 
 pipeline {
     agent any
     tools {
         maven 'maven'
     }
     stages {
+        stage("init") {
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
+            }
+        }
         stage("Build") {
             steps {
                 script {
-                    buildApp()
+                    gv.buildApp()
                 }
             }
         }
         stage("DockerLogin") {
             steps {
                 script {
-                    dockerLogin()
+                    gv.dockerLogin()
                 }
             }
         }
         stage("DockerBuild") {
             steps {
                 script {
-                    dockerBuild()
+                    gv.dockerBuild()
                 }
             }
         }
         stage("DockerPush") {
             steps {
                 script {
-                    dockerPush()
+                    gv.dockerPush()
                 }
             }
         }
         stage("Deploy") {
             steps {
                 script {
-                    deployApp()
+                    gv.deployApp()
                 }
             }
         }
