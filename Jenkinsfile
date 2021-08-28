@@ -12,31 +12,31 @@ pipeline {
                 }
             }
         }
-        stage("Build") {
+        stage("test") {
             steps {
                 script {
-                    gv.buildApp()
+                    gv.buildApp 'mvn package'
                 }
             }
         }
         stage("DockerLogin") {
             steps {
                 script {
-                    gv.dockerLogin()
+                    gv.dockerLogin 'dockerhub'
                 }
             }
         }
         stage("DockerBuild") {
             steps {
                 script {
-                    gv.dockerBuild()
+                    gv.dockerBuild 'lokeshlish/jar_application:1.0.0'
                 }
             }
         }
         stage("DockerPush") {
             steps {
                 script {
-                    gv.dockerPush()
+                    gv.dockerPush 'lokeshlish/jar_application:1.0.0'
                 }
             }
         }
