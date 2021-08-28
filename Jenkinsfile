@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     echo 'Building the image'
-                    sh 'docker build -t lokeshlish/java_app:1.0.0'
+                    sh 'docker build -t lokeshlish/java_app:1.0.0 .'
                 }
             }
         }
