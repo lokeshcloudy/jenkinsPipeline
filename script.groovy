@@ -1,6 +1,6 @@
 def buildApp(String package) {
     echo 'Building the image'
-    sh "${packsge}"
+    sh "${package}"
 }
 
 def dockerLogin(String id) {
