@@ -1,24 +1,24 @@
-def buildApp(String package) {
-    echo 'Building the image'
-    sh "${package}"
+def buildApp() {
+    echo 'Building the image.....'
+    sh 'mvn package'
 }
 
-def dockerLogin(String id) {
+def dockerLogin() {
     echo 'Testing the Image'
-    withCredentials([usernamePassword(credentialsId: '${id}', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
         sh "echo ${PASS} | docker login -u ${USER} --password-stdin"
 
     }
 }
 
-def dockerBuild(String imageName) {
+def dockerBuild() {
     echo 'Building The Image....'
-    sh "docker build -t ${imageName} ."
+    sh 'docker build -t lokeshlish/jar_application:1.0.0. .'
 }
 
-def dockerPush(String imageName) {
+def dockerPush() {
     echo 'Pushing The Docker Image'
-    sh "docker push ${imageName}"
+    sh 'docker push lokeshlish/jar_application:1.0.0.'
 }
 
 def deployApp() {
